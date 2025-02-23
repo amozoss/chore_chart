@@ -17,7 +17,7 @@ defmodule ChoreChartWeb.Router do
   scope "/", ChoreChartWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", ChoreChartLive
   end
 
   # Other scopes may use custom stacks.

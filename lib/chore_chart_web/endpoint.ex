@@ -7,7 +7,7 @@ defmodule ChoreChartWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_chore_chart_key",
-    signing_salt: "ZAvPoAcF",
+    signing_salt: "Hs+Hs+Hs",
     same_site: "Lax"
   ]
 
@@ -23,7 +23,8 @@ defmodule ChoreChartWeb.Endpoint do
     at: "/",
     from: :chore_chart,
     gzip: false,
-    only: ChoreChartWeb.static_paths()
+    only: ChoreChartWeb.static_paths(),
+    only_matching: ["audio", "img"]
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

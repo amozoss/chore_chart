@@ -21,18 +21,26 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
-  database_url =
-    System.get_env("DATABASE_URL") ||
+  database_password =
+    System.get_env("CHORE_CHART_POSTGRES_PASSWORD") ||
       raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
+        environment variable DATABASE_PASSWORD is missing.
       """
+
+  user = "chore_chart_user"
+  # default PostgreSQL host
+  host = "localhost"
+  # default PostgreSQL port
+  port = "5432"
+  database = "chore_chart_prod"
+
+  url = "ecto://#{user}:#{database_password}@#{host}:#{port}/#{database}"
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :chore_chart, ChoreChart.Repo,
     # ssl: true,
-    url: database_url,
+    url: url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 
